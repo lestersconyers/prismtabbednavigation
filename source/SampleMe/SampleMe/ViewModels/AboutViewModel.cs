@@ -20,7 +20,7 @@ namespace SampleMe.ViewModels
 
         private async void Navigate()
         {
-            await NavigationService.NavigateAsync("../" + nameof(OneLevelDeeper));
+            await NavigationService.NavigateAsync(nameof(OneLevelDeeper));
         }
     }
 }
