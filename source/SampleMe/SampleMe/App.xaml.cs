@@ -37,11 +37,13 @@ namespace SampleMe
             containerRegistry.RegisterForNavigation<AboutPage, AboutViewModel>();
             containerRegistry.RegisterForNavigation<ItemDetailPage, ItemDetailViewModel>();
             containerRegistry.RegisterForNavigation<ItemsPage, ItemsViewModel>();
+            containerRegistry.RegisterForNavigation<EditItemPage, EditItemPageViewModel>();
             containerRegistry.RegisterForNavigation<SplashPage, SplashPageViewModel>();
             containerRegistry.RegisterForNavigation<OneLevelDeeper, OneLevelDeeperViewModel>();
+            containerRegistry.RegisterForNavigation<ItemsLandingPage, ItemsLandingPageViewModel>();
 
             containerRegistry.RegisterSingleton<IDataStore<Item>, MockDataStore>();
-            containerRegistry.RegisterSingleton<IBasePageService, BasePageService>();
+            containerRegistry.Register<IBasePageService, BasePageService>();
         }
     }
 }

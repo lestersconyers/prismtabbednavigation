@@ -16,6 +16,7 @@ namespace SampleMe.Views
             ViewModel = BindingContext as AboutViewModel;
 
             GoButton.SetBinding(Button.CommandProperty, nameof(ViewModel.GoOneLevelDeeperCommand));
+            GoWithCodeBehind.SetBinding(Button.CommandProperty, nameof(ViewModel.GoOneLevelDeeperWithPageCommand));
         }
 
 

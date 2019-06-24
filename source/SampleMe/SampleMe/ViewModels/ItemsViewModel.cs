@@ -8,20 +8,27 @@ using Xamarin.Forms;
 using SampleMe.Models;
 using SampleMe.Views;
 using SampleMe.Services;
+using Prism.Commands;
+using Prism.Navigation;
 
 namespace SampleMe.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
         public ObservableCollection<Item> Items { get; set; }
-        public Command LoadItemsCommand { get; set; }
+        public DelegateCommand LoadItemsCommand { get; set; }
+        public DelegateCommand<Item> OpenDetailsCommand { get; }
+        public DelegateCommand OpenAddItemCommand { get; }
 
         public ItemsViewModel(IBasePageService basePageService)
             : base(basePageService)
         {
             Title = "Browse";
             Items = new ObservableCollection<Item>();
-            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+            LoadItemsCommand = new DelegateCommand(ExecuteLoadItemsCommand);
+
+            OpenDetailsCommand = new DelegateCommand<Item>(OpenDetails);
+            OpenAddItemCommand = new DelegateCommand(OpenAddItem);
 
             MessagingCenter.Subscribe<NewItemPage, Item>(this, "AddItem", async (obj, item) =>
             {
@@ -31,7 +38,18 @@ namespace SampleMe.ViewModels
             });
         }
 
-        async Task ExecuteLoadItemsCommand()
+        private async void OpenDetails(Item item)
+        {
+            var parameters = new NavigationParameters() { {"Item", item }};
+            await NavigationService.NavigateAsync(nameof(ItemDetailPage), parameters);
+        }
+
+        private async void OpenAddItem()
+        {
+            //do nothing for now...
+        }
+
+        async void ExecuteLoadItemsCommand()
         {
             if (IsBusy)
                 return;
@@ -55,6 +73,11 @@ namespace SampleMe.ViewModels
             {
                 IsBusy = false;
             }
+        }
+
+        public override void OnNavigatingTo(INavigationParameters parameters)
+        {
+            ExecuteLoadItemsCommand();
         }
     }
 }

@@ -1,21 +1,35 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="SampleMe.Views.ItemsPage" Title="{Binding Title}" x:Name="BrowseItemsPage">
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="SampleMe.Views.ItemsPage" Title="{Binding Title}" x:Name="BrowseItemsPage"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+            xmlns:viewModels="clr-namespace:SampleMe.ViewModels"
+            xmlns:models="clr-namespace:SampleMe.Models"
+            x:DataType="viewModels:ItemsViewModel">
 
     <ContentPage.ToolbarItems>
 
-        <ToolbarItem Text="Add" Clicked="AddItem_Clicked" />
+        <ToolbarItem Text="Add" Command="{Binding OpenAddItemCommand}" />
 
     </ContentPage.ToolbarItems>
 
     <StackLayout>
 
-        <ListView x:Name="ItemsListView" ItemsSource="{Binding Items}" VerticalOptions="FillAndExpand" HasUnevenRows="true" RefreshCommand="{Binding LoadItemsCommand}" IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsBusy, Mode=OneWay}" CachingStrategy="RecycleElement" ItemSelected="OnItemSelected">
+        <ListView 
+            x:Name="ItemsListView" 
+            ItemsSource="{Binding Items}" 
+            VerticalOptions="FillAndExpand" 
+            HasUnevenRows="true" 
+            RefreshCommand="{Binding LoadItemsCommand}" 
+            IsPullToRefreshEnabled="true" 
+            IsRefreshing="{Binding IsBusy, Mode=OneWay}" 
+            CachingStrategy="RecycleElement">
+         
 
             <ListView.ItemTemplate>
 
                 <DataTemplate>
 
-                    <ViewCell>
+                    <ViewCell x:DataType="models:Item">
 
                         <StackLayout Padding="10">
 

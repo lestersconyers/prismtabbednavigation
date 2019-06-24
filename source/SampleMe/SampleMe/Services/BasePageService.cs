@@ -12,6 +12,7 @@ namespace SampleMe.Services
         public BasePageService(INavigationService navigationService, IDataStore<Item> dataStore)
         {
             _navigationService = navigationService;
+            _dataStore = dataStore;
         }
 
         public INavigationService NavigationService => _navigationService;

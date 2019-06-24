@@ -10,43 +10,33 @@ using Xamarin.Forms.Xaml;
 using SampleMe.Models;
 using SampleMe.Views;
 using SampleMe.ViewModels;
+using Prism.Behaviors;
 
 namespace SampleMe.Views
 {
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ItemsPage : ContentPage
     {
-        ItemsViewModel ViewModel;
+        public ItemsViewModel ViewModel { get; }
 
         public ItemsPage()
         {
             InitializeComponent();
 
             ViewModel = BindingContext as ItemsViewModel;
+
+            SetBindings();
         }
 
-        async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
+        void SetBindings()
         {
-            //var item = args.SelectedItem as Item;
-            //if (item == null)
-            //    return;
+            ItemsListView.Behaviors.Add(new EventToCommandBehavior
+            {
+                EventName = "ItemTapped",
+                Command = ViewModel.OpenDetailsCommand,
+                EventArgsParameterPath = "Item"
+            });
 
-            //await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(item)));
-
-            //// Manually deselect item.
-            //ItemsListView.SelectedItem = null;
-        }
-
-        async void AddItem_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushModalAsync(new NavigationPage(new NewItemPage()));
-        }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-
-            //if (viewModel.Items.Count == 0)
-                //viewModel.LoadItemsCommand.Execute(null);
         }
     }
 }

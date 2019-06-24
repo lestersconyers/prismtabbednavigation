@@ -20,8 +20,7 @@ namespace SampleMe.ViewModels
             await Task.Delay(1000);
 
             //this is the page with tabs
-            await NavigationService.NavigateAsync($"/MainPage");
-            //await NavigationService.NavigateAsync("/MainPage?selectedTab=ItemsPage");
+             await NavigationService.NavigateAsync("/MainPage?selectedTab=ItemsLandingPage");
         }
     }
 }

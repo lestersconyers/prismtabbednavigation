@@ -1,5 +1,13 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="SampleMe.Views.ItemDetailPage" Title="{Binding Title}">
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="SampleMe.Views.ItemDetailPage" Title="{Binding Title}"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True">
+    
+    <ContentPage.ToolbarItems>
+
+        <ToolbarItem Text="Edit" Command="{Binding OpenEditCommand}" />
+
+    </ContentPage.ToolbarItems>
 
     <StackLayout Spacing="20" Padding="15">
 
@@ -10,6 +18,7 @@
         <Label Text="Description:" FontSize="Medium" />
 
         <Label Text="{Binding Item.Description}" FontSize="Small" />
+       
 
     </StackLayout>
 
