@@ -49,6 +49,13 @@ namespace SampleMe.ViewModels
             //do nothing for now...
         }
 
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+
+            ExecuteLoadItemsCommand();
+        }
+
         async void ExecuteLoadItemsCommand()
         {
             if (IsBusy)
